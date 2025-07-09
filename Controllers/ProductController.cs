@@ -19,6 +19,7 @@ public class ProductsController(IProductService service) : ControllerBase
             : NotFound();
 
     [HttpPost]
+    [Transactional]
     public async Task<ActionResult<Product>> Create(Product product)
     {
         var created = await service.CreateProductAsync(product);

@@ -13,7 +13,7 @@ public class ProductService(IProductRepository repository) : IProductService
     {
         if (product.Price <= 0)
             throw new ArgumentException("Price must be positive");
-        
+
         return await repository.AddAsync(product);
     }
     
