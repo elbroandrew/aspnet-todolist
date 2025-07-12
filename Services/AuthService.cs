@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using ProductApi.Data;
 
+
+namespace ProductApi.Services;
+
 public class AuthService
 {
     private readonly AppDbContext _context;

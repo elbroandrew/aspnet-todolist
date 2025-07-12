@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
-using ProductApi.Data;
+
+namespace ProductApi.Attributes;
 
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
 public class TransactionalAttribute : Attribute, IAsyncActionFilter

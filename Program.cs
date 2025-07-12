@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using ProductApi.Controllers;
+using ProductApi.Data;
 using ProductApi.Models;
 using ProductApi.Repositories;
 using ProductApi.Services;
@@ -68,16 +69,16 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
     
-    if (!db.Users.Any())
-    {
-        db.Users.Add(new User
-        {
-            Username = "admin",
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123"),
-            Role = "Admin"
-        });
-        await db.SaveChangesAsync();
-    }
+    // if (!db.Users.Any())
+    // {
+    //     db.Users.Add(new User
+    //     {
+    //         Username = "user1",
+    //         Email = "user1@test.com",
+    //         PasswordHash = BCrypt.Net.BCrypt.HashPassword("123"),
+    //     });
+    //     await db.SaveChangesAsync();
+    // }
 }
 
 app.Run();

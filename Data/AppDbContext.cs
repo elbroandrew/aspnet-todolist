@@ -1,4 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using ProductApi.Models;
+
+namespace ProductApi.Data;
 
 public class AppDbContext : DbContext
 {
@@ -8,6 +11,11 @@ public class AppDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().HasIndex(u => u.Username).IsUnique();
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(u => u.Username).IsRequired();
+            entity.Property(u => u.Email).IsRequired();
+        });
     }
 }

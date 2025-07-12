@@ -6,24 +6,24 @@ namespace ProductApi.Repositories;
 
 public class ProductRepository(AppDbContext db) : IProductRepository
 {
-    public async Task<List<Product>> GetAllAsync() => await db.Products.ToListAsync();
+    public async Task<List<TodoTask>> GetAllAsync() => await db.Products.ToListAsync();
     
-    public async Task<Product?> GetByIdAsync(long id) => await db.Products.FindAsync(id);
+    public async Task<TodoTask?> GetByIdAsync(long id) => await db.Products.FindAsync(id);
     
-    public async Task<Product> AddAsync(Product product)
+    public async Task<TodoTask> AddAsync(TodoTask todoTask)
     {
-        db.Products.Add(product);
+        db.Products.Add(todoTask);
         await db.SaveChangesAsync();
-        return product;
+        return todoTask;
     }
     
-    public async Task UpdateAsync(Product product)
+    public async System.Threading.Tasks.Task UpdateAsync(TodoTask todoTask)
     {
-        db.Entry(product).State = EntityState.Modified;
+        db.Entry(todoTask).State = EntityState.Modified;
         await db.SaveChangesAsync();
     }
     
-    public async Task DeleteAsync(long id)
+    public async System.Threading.Tasks.Task DeleteAsync(long id)
     {
         var product = await GetByIdAsync(id);
         if (product != null)

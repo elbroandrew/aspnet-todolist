@@ -1,7 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProductApi.Services;
+using ProductApi.Models.Auth;
+
+
+namespace ProductApi.Controllers;
 
 [ApiController]
-[Route("api/auth")]
+[Route("auth")]
 public class AuthController : ControllerBase
 {
     private readonly AuthService _authService;
@@ -9,6 +15,22 @@ public class AuthController : ControllerBase
     public AuthController(AuthService authService)
     {
         _authService = authService;
+    }
+
+    [HttpPost("register")]
+    public async Task<IActionResult> Register([FromBody] RegisterRequest registerRequest)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        if (registerRequest.Password != registerRequest.ConfirmPassword)
+        {
+            return BadRequest();
+        }
+        
+        
     }
 
     [HttpPost("login")]
