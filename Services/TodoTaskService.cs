@@ -3,7 +3,7 @@ using ProductApi.Repositories;
 
 namespace ProductApi.Services;
 
-public class ProductService(IProductRepository repository) : IProductService
+public class TodoTaskService(ITodoRepository repository) : IProductService
 {
     public Task<List<TodoTask>> GetAllProductsAsync() => repository.GetAllAsync();
     
@@ -11,25 +11,21 @@ public class ProductService(IProductRepository repository) : IProductService
     
     public async Task<TodoTask> CreateProductAsync(TodoTask todoTask)
     {
-        if (todoTask.Price <= 0)
-            throw new ArgumentException("Price must be positive");
-
         return await repository.AddAsync(todoTask);
     }
     
-    public async System.Threading.Tasks.Task UpdateProductAsync(long id, TodoTask todoTask)
+    public async Task UpdateProductAsync(long id, TodoTask todoTask)
     {
-        var existing = await repository.GetByIdAsync(id) 
+        var existingTask = await repository.GetByIdAsync(id) 
             ?? throw new KeyNotFoundException("Product not found");
         
-        existing.Name = todoTask.Name;
-        existing.Price = todoTask.Price;
-        existing.Quantity = todoTask.Quantity;
+        existingTask.Title = todoTask.Title;
+        existingTask.Completed = todoTask.Completed;
         
-        await repository.UpdateAsync(existing);
+        await repository.UpdateAsync(existingTask);
     }
     
-    public async System.Threading.Tasks.Task DeleteProductAsync(long id)
+    public async Task DeleteProductAsync(long id)
     {
         if (await repository.GetByIdAsync(id) is { } product)
             await repository.DeleteAsync(id);

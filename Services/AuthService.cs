@@ -26,7 +26,7 @@ public class AuthService
         return new TokenResponse
         {
             Token = _jwtHelper.GenerateToken(user),
-            Expires = DateTime.Now.AddMinutes(_jwtHelper.GetTokenExpiryMinutes())
+            // Expires = DateTime.Now.AddMinutes(_jwtHelper.GetTokenExpiryMinutes())
         };
     }
 }

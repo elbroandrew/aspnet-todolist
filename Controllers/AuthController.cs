@@ -29,8 +29,8 @@ public class AuthController : ControllerBase
         {
             return BadRequest();
         }
-        
-        
+
+        return Ok();
     }
 
     [HttpPost("login")]

@@ -2,11 +2,11 @@ using ProductApi.Models;
 
 namespace ProductApi.Repositories;
 
-public interface IProductRepository
+public interface ITodoRepository
 {
     Task<List<TodoTask>> GetAllAsync();
     Task<TodoTask?> GetByIdAsync(long id);
     Task<TodoTask> AddAsync(TodoTask todoTask);
-    System.Threading.Tasks.Task UpdateAsync(TodoTask todoTask);
-    System.Threading.Tasks.Task DeleteAsync(long id);
+    Task UpdateAsync(TodoTask todoTask);
+    Task DeleteAsync(long id);
 }
