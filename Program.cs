@@ -33,7 +33,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 
 builder.Services.AddScoped<ITodoRepository, TodoRepository>();
-builder.Services.AddScoped<IProductService, TodoTaskService>();
+builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
 
 builder.Services.AddScoped<JwtHelper>();
 builder.Services.AddScoped<AuthService>();

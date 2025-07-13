@@ -3,21 +3,21 @@ using ProductApi.Repositories;
 
 namespace ProductApi.Services;
 
-public class TodoTaskService(ITodoRepository repository) : IProductService
+public class TodoTaskService(ITodoRepository repository) : ITodoTaskService
 {
-    public Task<List<TodoTask>> GetAllProductsAsync() => repository.GetAllAsync();
+    public Task<List<TodoTask>> GetAllTasksAsync() => repository.GetAllAsync();
     
-    public Task<TodoTask?> GetProductByIdAsync(long id) => repository.GetByIdAsync(id);
+    public Task<TodoTask?> GetTaskByIdAsync(long id) => repository.GetByIdAsync(id);
     
-    public async Task<TodoTask> CreateProductAsync(TodoTask todoTask)
+    public async Task<TodoTask> CreateTaskAsync(TodoTask todoTask)
     {
         return await repository.AddAsync(todoTask);
     }
     
-    public async Task UpdateProductAsync(long id, TodoTask todoTask)
+    public async Task UpdateTaskAsync(long id, TodoTask todoTask)
     {
         var existingTask = await repository.GetByIdAsync(id) 
-            ?? throw new KeyNotFoundException("Product not found");
+            ?? throw new KeyNotFoundException("Task not found");
         
         existingTask.Title = todoTask.Title;
         existingTask.Completed = todoTask.Completed;
@@ -25,11 +25,11 @@ public class TodoTaskService(ITodoRepository repository) : IProductService
         await repository.UpdateAsync(existingTask);
     }
     
-    public async Task DeleteProductAsync(long id)
+    public async Task DeleteTaskAsync(long id)
     {
         if (await repository.GetByIdAsync(id) is { } product)
             await repository.DeleteAsync(id);
         else
-            throw new KeyNotFoundException("Product not found");
+            throw new KeyNotFoundException("Task not found");
     }
 }
